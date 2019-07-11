@@ -13,9 +13,9 @@ from numpy import mean
 from numpy import std
 import matplotlib.pyplot as plt1
 
-from misc_func import (secondsToStr, load_datasets, binarize_labels, build_model, 
-                       fit_model, normalize_data, eval_model, plot_accuracy_loss,
-                       load_model_from)
+from cnn_lib import (secondsToStr, load_datasets, binarize_labels, build_model, 
+                     fit_model, normalize_data, eval_model, plot_accuracy_loss,
+                     load_model_from)
 
 RANDOM_SEED = 42
 

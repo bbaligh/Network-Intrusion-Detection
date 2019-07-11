@@ -16,6 +16,19 @@ encoding = 'utf-8'
 
 """
 *******************************************************************************
+my_read_csv: 
+*******************************************************************************
+"""
+def my_read_csv(file_name):
+    missing_values = ["n/a", "na", "--"]
+    DataF = pd.read_csv(file_name, 
+                        encoding=encoding, 
+                        na_values = missing_values,
+                        skipinitialspace=True)
+    return(DataF)
+
+"""
+*******************************************************************************
 expand_categories: expands categories
 *******************************************************************************
 """
@@ -55,13 +68,13 @@ def analyze(filename):
 
 """
 *******************************************************************************
-anlyzeall: analyze all csv files in pathname
+anlyze_all: analyze all csv files in pathname
 *******************************************************************************
 """
-def analyzeall(pathname):
+def analyze_all(pathname):
     print("* analyzing dataset files")
 
-    df = pd.concat(map(pd.read_csv, glob.glob(os.path.join(pathname, "*.csv"))))
+    df = pd.concat(map(my_read_csv, glob.glob(os.path.join(pathname, "*.csv"))))
     
     cols = df.columns.values
     total = float(len(df))
@@ -81,15 +94,16 @@ def analyzeall(pathname):
     
 """
 *******************************************************************************
-loadall: load all csv files in pathname
+load_all: load all csv files in pathname
 *******************************************************************************
 """
-def loadall(pathname):
+def load_all(pathname,
+             wildcard='*.csv'):
     print("* loading dataset files")
 
-    #df = pd.concat(map(pd.read_csv, glob.glob(os.path.join(pathname, "*.csv"))))
-    df = pd.read_csv('c:\\idswdl\\dataset\\wednesday-workinghours.pcap_iscx.csv',
-                     sep='\s*,\s*', header=0, engine='python',encoding=encoding)
+    df = pd.concat(map(my_read_csv, glob.glob(os.path.join(pathname, wildcard))))
+    #df = pd.read_csv('c:\\idswdl\\dataset\\wednesday-workinghours.pcap_iscx.csv',
+    #                 sep='\s*,\s*', header=0, engine='python',encoding=encoding)
     nb = len(glob.glob(os.path.join(pathname, "*.csv")))
     cols = len(df.columns.values)
     rows = int(float(len(df)))

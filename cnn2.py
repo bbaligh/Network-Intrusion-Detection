@@ -33,8 +33,8 @@ def main(in_path=None,
     sns.set(style='whitegrid', palette='muted', font_scale=1.5) 
     rcParams['figure.figsize'] = 14, 8
     
-    X, Y = load_datasets(in_path+'x_encoded.csv', 
-                         in_path+'labeled.csv', 
+    X, Y = load_datasets(in_path+'X.csv', 
+                         in_path+'y.csv', 
                          verbose_mode=1)
 
     # %% 
@@ -60,20 +60,20 @@ def main(in_path=None,
                          verbose_mode=1)
    
     # %%
-    if os.path.isfile(out_path+'cnn1.h5'):
-        os.remove(out_path+'cnn1.h5')
+    if os.path.isfile(out_path+'cnn2.h5'):
+        os.remove(out_path+'cnn2.h5')
     history, _ = fit_model(cnn_1D, 
                            x_train, 
                            x_test, 
                            y_train, 
                            y_test, 
-                           checkpointer_file=out_path+'cnn1.h5',
+                           checkpointer_file=out_path+'cnn2.h5',
                            nb_epoch=5,
                            batch_size=100,
                            verbose_mode=1)
     
     # %%
-    cnn_1D = load_model_from(out_path+'cnn1.h5')
+    cnn_1D = load_model_from(out_path+'cnn2.h5')
     
     # %%
     _, _, _, _ = eval_model(cnn_1D,                            
